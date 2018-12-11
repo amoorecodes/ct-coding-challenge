@@ -1,10 +1,17 @@
 import React from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Landing from '../Landing/Landing.jsx'
+import { PageWrapper } from '../../styles/globalUI.jsx'
 
 const App = () => {
   return (
-    <div>
-      <p>this is going to be entire App component.</p>
-    </div>
+    <PageWrapper>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Landing} />
+        </Switch>
+      </BrowserRouter>
+    </PageWrapper>
   )
 }
 

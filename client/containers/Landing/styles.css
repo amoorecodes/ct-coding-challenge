@@ -1,0 +1,13 @@
+:local(.wrapper) {
+  display: flex;
+  background-color: aquamarine;
+}
+
+:local(div) {
+  background-color: blue;
+}
+
+:local(p) {
+  color: red;
+  margin: 20px;
+}
