@@ -1,6 +1,7 @@
 const express = require('express')
 const parser = require('body-parser')
 const cors = require('cors')
+const path = require('path')
 
 // activate environmental variables
 require('dotenv').config()
@@ -19,14 +20,18 @@ app.use(parser.urlencoded({ extended: true }))
 require('../db/index.js')
 
 //server static files from Public folder
-// app.use(express.static('public'))
+app.use(express.static('public'))
 
 // fix server to server static for all routes that do not have '/api' in them (regex)
 // [^(api)]
 
 const { router } = require('./router/index.js')
 app.use('/api', router)
-app.get('/*', app.use(express.static('public')))
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'), err =>
+    res.status(500).send(err)
+  )
+})
 
 // start the server
 app.listen(PORT, err => {

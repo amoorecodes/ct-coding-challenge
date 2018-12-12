@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { pool } = require('../../db/index.js')
+const path = require('path')
 
 router.route('/authenticate').post((req, res) => {
   console.log('request in router')
@@ -21,6 +22,15 @@ router.route('/authenticate').post((req, res) => {
     .catch(err => console.error(err))
 })
 
-// router.route('/*', express.static('public'))
+// router
+//   .route('/*')
+//   .get((req, res) =>
+//     res
+//       .status(200)
+//       .sendFile(path.join(__dirname, '../../public/index.html'), err =>
+//         console.error('error in send file ', err)
+
+//       )
+//   )
 
 module.exports = { router }
