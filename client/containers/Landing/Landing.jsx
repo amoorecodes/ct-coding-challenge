@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import style from './styles.css'
+import styles from './styles.css'
 import { PageWrapper, Text } from './LandingUI.jsx'
 import Login from '../Login/Login.jsx'
+import ControlMenu from '../ControlMenu/ControlMenu.jsx'
 
 class Landing extends Component {
   constructor(props) {
@@ -18,13 +19,14 @@ class Landing extends Component {
   render() {
     return (
       <PageWrapper>
-        <div className={style.wrapper}>
+        <div className={styles.wrapper}>
           <Text>
             This is an HTML manipulator. You can create simple websites and save
             them to your account. Please login now.
           </Text>
         </div>
         <Login />
+        <ControlMenu />
       </PageWrapper>
     )
   }

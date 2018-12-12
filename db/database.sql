@@ -1,0 +1,31 @@
+DROP DATABASE IF EXISTS html;
+
+CREATE DATABASE html;
+
+/c html;
+
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users
+(
+  ID SERIAL PRIMARY KEY,
+  username VARCHAR(50) NOT NULL,
+  passcode VARCHAR(50) NOT NULL,
+);
+
+DROP TABLE IF EXISTS websites;
+
+CREATE TABLE websites
+(
+  ID SERIAL PRIMARY KEY,
+  link VARCHAR(255) NOT NULL,
+);
+
+DROP TABLE IF EXISTS users_websites;
+
+CREATE TABLE users_websites
+(
+  ID SERIAL PRIMARY KEY
+  userID INT REFERENCES users(ID),
+  websiteID INT REFERENCES websites(ID)
+);
