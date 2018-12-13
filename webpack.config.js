@@ -1,29 +1,67 @@
 const path = require('path')
 
-const SRC_DIR = path.resolve(__dirname, 'client')
-const BUILD_DIR = path.resolve(__dirname, 'public')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+const entryPoint = path.resolve(__dirname, 'client')
+const outputPoint = path.resolve(__dirname, 'static')
 
 module.exports = {
-  entry: path.resolve(SRC_DIR, 'index.js'),
+  entry: path.resolve(entryPoint, 'index.js'),
   output: {
-    filename: 'bundle.js',
-    path: BUILD_DIR
+    path: outputPoint,
+    filename: 'bundle.js'
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: [/node_modules/],
-        use: [
-          {
-            loader: 'babel-loader',
-            options: { presets: ['@babel/preset-env', '@babel/preset-react'] }
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  targets: {
+                    chrome: '58'
+                  }
+                }
+              ],
+              '@babel/preset-react'
+            ],
+            plugins: [
+              '@babel/plugin-proposal-object-rest-spread',
+              '@babel/plugin-transform-async-to-generator'
+            ]
           }
-        ]
+        }
+      },
+      {
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader',
+          options: {
+            minimize: true
+          }
+        }
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              camelCase: true,
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]',
+              sourceMap: true
+            }
+          }
+        ]
       }
     ]
   }

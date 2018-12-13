@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import Editor from '../Editor/Editor.jsx'
 import axios from 'axios'
+import styles from './Login.css'
 
 class Login extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class Login extends Component {
     axios
       .post('/api/authenticate', userdata)
       .then(res => {
-        console.log('success', res)
+        console.log('success', res, res.data)
         // change state of authentification for redirect
         this.setState({
           authenticated: !this.state.authenticated,
@@ -52,8 +53,12 @@ class Login extends Component {
       )
     } else {
       return (
-        <div>
-          <form onChange={this.handleInput} onSubmit={this.handleLogin}>
+        <div style={styles}>
+          <form
+            className={styles.loginForm}
+            onChange={this.handleInput}
+            onSubmit={this.handleLogin}
+          >
             <p>Username:</p>
             <input
               className="username"

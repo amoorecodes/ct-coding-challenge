@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { PageWrapper } from './styles.jsx'
 import Element from '../Element/Element.jsx'
+import TextElement from '../TextElement/TextElement.jsx'
 
 class WebsiteWindow extends Component {
   constructor(props) {
@@ -12,7 +13,6 @@ class WebsiteWindow extends Component {
     // make it take big portion of the screen, give border
     return (
       <PageWrapper id="Website">
-        <p>this is going to be a big window</p>
         {this.props.elements.map(element => {
           // const style = `"color:${element.attributes.color}; font-size:${
           //   element.attributes.size
@@ -20,7 +20,14 @@ class WebsiteWindow extends Component {
           // check it's order
           // then place it accordingly
           // <{element.tag}>{element.body}</{element.tag}
-          return <h1>added {element.data}</h1>
+          if (element.tag === 'p') {
+            return (
+              <TextElement
+                {...element}
+                updateElement={this.props.updateElement}
+              />
+            )
+          }
         })}
       </PageWrapper>
     )

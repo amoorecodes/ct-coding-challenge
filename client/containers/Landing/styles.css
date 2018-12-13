@@ -1,14 +1,17 @@
 :local(.wrapper) {
   display: flex;
   background-color: aquamarine;
-  color: red;
+  color: rgb(40, 40, 40);
 }
 
 :local(div) {
-  background-color: blue;
+  background-color: rgba(213, 240, 255, 0.89);
+  display: flex;
+  flex-direction: column;
+  /* padding: 20px; */
 }
 
 :local(p) {
-  color: red;
-  margin: 20px;
+  color: rgba(255, 90, 90, 0.844);
+  /* margin: 20px; */
 }

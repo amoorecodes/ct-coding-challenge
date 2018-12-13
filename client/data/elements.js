@@ -8,7 +8,8 @@ export const elements = [
       width: null,
       src: null
     },
-    style: {}
+    style: {},
+    objectID: 1
   },
 
   {
@@ -23,9 +24,10 @@ export const elements = [
     data: 'initial text',
     attributes: {
       color: null,
-      size: null,
+      fontSize: null,
       background: null
-    }
+    },
+    objectID: 1
   },
   {
     name: 'Table',

@@ -13,6 +13,7 @@ const PORT = 3000
 app.use(cors())
 
 // enable auto encoding of the data
+// app.use(parser.raw())
 app.use(parser.json())
 app.use(parser.urlencoded({ extended: true }))
 
@@ -20,7 +21,7 @@ app.use(parser.urlencoded({ extended: true }))
 require('../db/index.js')
 
 //server static files from Public folder
-app.use(express.static('public'))
+app.use(express.static('static'))
 
 // fix server to server static for all routes that do not have '/api' in them (regex)
 // [^(api)]

@@ -2,6 +2,9 @@ const express = require('express')
 const router = express.Router()
 const { pool } = require('../../db/index.js')
 const path = require('path')
+const stringDecoder = require('string_decoder').StringDecoder
+
+const decoder = new stringDecoder('utf-8')
 
 router.route('/authenticate').post((req, res) => {
   // console.log('request in router')
@@ -14,6 +17,7 @@ router.route('/authenticate').post((req, res) => {
     .then(data => {
       if (data[0].passcode && data[0].passcode === passcode) {
         // console.log('passcode match')
+        // pool.query(`select websites.elements from `)
         res.status(200).send(data)
       } else {
         res.status(401).send('not authorised')
@@ -38,6 +42,42 @@ router.route('/saveRawData').post((req, res) => {
     )
     .then(() => console.log('success'))
     .catch(err => console.error(err))
+})
+
+router.route('/fetchRawData').get((req, res) => {
+  let { username } = req.query
+  console.log(req.query, req.params, username, req.query.responseType)
+
+  // res.on('data', chunk => {
+  //   let textChunk = decoder.write(chunk)
+  // })
+
+  // let temp = ''
+  // req.on('data', chunk => (temp += chunk))
+  // req.on('end', () => (temp = JSON.stringify(temp)))
+  // console.log('temp', data.toString())
+
+  // let textChunk = ''
+
+  // res.on('data', chunk => {
+  //   textChunk = decoder.write(chunk)
+  // })
+
+  // console.log('chunk', textChunk)
+
+  const request = async () => {
+    let json = await pool.query(
+      `select elements from websites inner join users on websites.userID = users.ID where users.username = '${username}'`
+    )
+
+    return json
+  }
+
+  request()
+    .then(data => {
+      res.status(200).json(data[data.length - 1])
+    })
+    .catch(err => console.error('error fetchoing raw data on server', err))
 })
 
 module.exports = { router }

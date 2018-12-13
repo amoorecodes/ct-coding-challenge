@@ -8,4 +8,5 @@ export const PageWrapper = styled.div`
   border: 3px solid brown;
   height: 20rem;
   width: 60%;
+  margin: 0 20px 10px 20px;
 `

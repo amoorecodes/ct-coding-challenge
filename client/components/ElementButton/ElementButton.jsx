@@ -17,7 +17,10 @@ class ElementButton extends Component {
     return this.state.toggleMenu ? (
       <div>
         <button onClick={this.handleClick}>{this.props.name}</button>
-        <ElementControls elementDetails={{ ...this.props }} />
+        <ElementControls
+          elementDetails={{ ...this.props }}
+          className="controlMenu"
+        />
       </div>
     ) : (
       <button onClick={this.handleClick}>{this.props.name}</button>

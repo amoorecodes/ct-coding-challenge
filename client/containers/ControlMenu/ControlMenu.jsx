@@ -6,7 +6,11 @@ const ControlMenu = props => {
   return (
     <div>
       {elements.map(item => (
-        <ElementButton {...item} addElement={props.addElement} />
+        <ElementButton
+          {...item}
+          addElement={props.addElement}
+          className="controlMenuButton"
+        />
       ))}
     </div>
   )
