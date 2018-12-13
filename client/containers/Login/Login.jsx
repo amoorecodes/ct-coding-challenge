@@ -25,7 +25,6 @@ class Login extends Component {
       username: this.state.username,
       passcode: this.state.passcode
     }
-    console.log('fired submit', userdata)
 
     // send axios request to a database to check user/password combination
     axios
@@ -69,8 +68,6 @@ class Login extends Component {
             />
             <input type="submit" />
           </form>
-
-          <Link to="/editor">Click here</Link>
         </div>
       )
     }

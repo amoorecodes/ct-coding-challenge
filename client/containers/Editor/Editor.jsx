@@ -9,9 +9,39 @@ class Editor extends Component {
     super(props)
     this.state = {
       html: props.html,
-      elements: ['1', '2'],
-      userData: this.props.userData
+      elements: [],
+      userData: this.props.userData || { username: 'test_user' }
     }
+    this.addElement = this.addElement.bind(this)
+    this.handleSave = this.handleSave.bind(this)
+  }
+
+  addElement(e, data) {
+    // e.preventDefault()
+    e.persist()
+    // e.stopPropagation()
+    // e.nativeEvent.stopImmediatePropagation()
+    let elements = [...this.state.elements, data]
+
+    this.setState({ elements: elements })
+  }
+
+  handleSave(e) {
+    e.preventDefault()
+    // use helper function to create an html
+
+    // store all elements
+
+    const data = {
+      elements: this.state.elements,
+      user: this.state.userData.username
+    }
+    axios
+      .post('/api/saveRawData', data)
+      .then(res => {
+        console.log('we successfully saved your raw data to the editor', res)
+      })
+      .catch(err => console.error(err))
   }
 
   componentDidMount() {
@@ -25,9 +55,10 @@ class Editor extends Component {
       <PageWrapper>
         <h2>this is editor</h2>
         <BuilderUI>
-          <ControlMenu />
-          <WebsiteWindow state={{ ...this.state.elements }} />
+          <ControlMenu addElement={this.addElement} />
+          <WebsiteWindow elements={this.state.elements} />
         </BuilderUI>
+        <button onClick={this.handleSave}>SAVE THE RAW DATA</button>
       </PageWrapper>
     )
   }

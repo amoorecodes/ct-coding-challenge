@@ -5,4 +5,6 @@ export const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   background-color: lightblue;
+  border: 2px solid orange;
+  border-radius: 5px;
 `

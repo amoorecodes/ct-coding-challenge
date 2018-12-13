@@ -20,7 +20,12 @@ export const elements = [
   {
     name: 'Text',
     tag: 'p',
-    attributes: {}
+    data: 'initial text',
+    attributes: {
+      color: null,
+      size: null,
+      background: null
+    }
   },
   {
     name: 'Table',
