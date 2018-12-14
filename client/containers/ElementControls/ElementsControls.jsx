@@ -8,6 +8,7 @@ class ElementsControls extends Component {
     // this.addElement = this.addElement.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   handleClick(e) {
@@ -19,11 +20,17 @@ class ElementsControls extends Component {
 
   handleUpdate(e) {
     e.preventDefault()
-    console.log('EC e/ data', this.state, 'props', this.props)
+    // console.log('EC e/ data', this.state, 'props', this.props)
     this.props.updateElement(e, {
       ...this.props.elementDetails
     })
     this.setState({ seleceted: false })
+  }
+
+  handleDelete(e) {
+    e.preventDefault()
+    console.log('are we deleting? ', this.state.objectID)
+    this.props.deleteElement(e, this.state.objectID)
   }
 
   render() {
@@ -38,24 +45,12 @@ class ElementsControls extends Component {
               value={this.props.elementDetails.data}
               onChange={this.props.handleInput}
             />
-            <input
-              className="data"
-              type="submit"
-              onClick={this.props.handleChange}
-              value="update"
-            />
             <p>Font Color</p>
             <input
               className="attributes.color"
               type="color"
               onChange={this.props.handleInput}
               value={this.state.color}
-            />
-            <input
-              className="attributes.color"
-              type="submit"
-              onClick={this.props.handleChange}
-              value="update"
             />
 
             <p>Background Color</p>
@@ -64,12 +59,6 @@ class ElementsControls extends Component {
               type="color"
               onChange={this.props.handleInput}
               value={this.state.background}
-            />
-            <input
-              className="background"
-              type="submit"
-              onClick={this.props.handleChange}
-              value="update"
             />
 
             <p>Font Size</p>
@@ -81,12 +70,6 @@ class ElementsControls extends Component {
               max="64"
               onChange={this.props.handleInput}
               value={this.state.size}
-            />
-            <input
-              className="size"
-              type="submit"
-              onClick={this.props.handleChange}
-              value="update"
             />
           </form>
           <button onClick={this.handleClick}>Add {this.state.name}</button>
@@ -154,6 +137,7 @@ class ElementsControls extends Component {
               value="update"
             />
           </form>
+          <button onClick={this.handleDelete}>Delete Element</button>
         </div>
       )
     }

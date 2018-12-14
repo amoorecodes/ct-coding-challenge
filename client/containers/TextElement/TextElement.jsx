@@ -10,21 +10,12 @@ class TextElement extends Component {
     }
     this.handleSelect = this.handleSelect.bind(this)
     this.handleInput = this.handleInput.bind(this)
-    this.handleChange = this.handleChange.bind(this)
   }
 
   handleSelect(e) {
     e.preventDefault()
     // console.log('selected an element')
     this.setState({ selected: !this.state.selected })
-  }
-
-  handleChange(e, data) {
-    // console.log('TE handle change, e / data: ', e.targe, data)
-    // this.props.updateElement(data)
-    // e.preventDefault()
-    // this.setState({ [e.target.className]: e.target.value })
-    // console.log('text element state after handle change', this.state)
   }
 
   handleInput(e) {
@@ -57,12 +48,6 @@ class TextElement extends Component {
       ...this.state.attributes
     }
 
-    // console.log(
-    //   'text element state/props data',
-    //   this.state.data,
-    //   this.props.data
-    // )
-
     return this.state.selected ? (
       <div>
         <p
@@ -79,6 +64,7 @@ class TextElement extends Component {
             elementDetails={{ ...this.state }}
             updateElement={this.props.updateElement}
             handleInput={this.handleInput}
+            deleteElement={this.props.deleteElement}
           />
         </div>
       </div>

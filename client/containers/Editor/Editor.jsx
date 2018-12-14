@@ -3,6 +3,8 @@ import axios from 'axios'
 import ControlMenu from '../ControlMenu/ControlMenu.jsx'
 import WebsiteWindow from '../WebsiteWindow/WebsiteWindow.jsx'
 import { PageWrapper, BuilderUI } from './styles.jsx'
+import { createHTML } from '../../data/createHTML.js'
+import styles from './editorUI.css'
 
 class Editor extends Component {
   constructor(props) {
@@ -15,17 +17,16 @@ class Editor extends Component {
     this.addElement = this.addElement.bind(this)
     this.handleSave = this.handleSave.bind(this)
     this.updateElement = this.updateElement.bind(this)
+    this.printHTML = this.printHTML.bind(this)
+    this.deleteElement = this.deleteElement.bind(this)
   }
 
   addElement(e, data) {
     // e.preventDefault()
     e.persist()
-
     const createID = () => {
       return Math.floor(Math.random() * 1000000000000) + 1
     }
-    // e.stopPropagation()
-    // e.nativeEvent.stopImmediatePropagation()
     data.objectID = createID()
     let elements = [...this.state.elements, data]
 
@@ -34,9 +35,7 @@ class Editor extends Component {
 
   updateElement(e, data) {
     e.persist()
-    // e.preventDefault()
     console.log('editor updating an element', data)
-
     // find element by objectID
     let elements = [...this.state.elements]
     let i = undefined
@@ -58,16 +57,34 @@ class Editor extends Component {
     this.setState({ elements: elements })
     console.log('elements', elements, 'state after update', this.state.element)
   }
+  deleteElement(e, id) {
+    e.persist()
+    // find element by objectID
+    let elements = [...this.state.elements]
+    let i = undefined
+    for (let index = 0, length = elements.length; index < length; index++) {
+      if (elements[index].objectID === id) {
+        i = index
+      }
+    }
+
+    if (i === 0) {
+      elements = [...elements.slice(1)]
+    } else if (i === elements.length - 1) {
+      elements = [...elements.slice(0)]
+    } else {
+      elements = [...elements.slice(0, i), ...elements.slice(i + 1)]
+    }
+    this.setState({ elements: elements })
+    console.log('elements', elements, 'state after update', this.state.element)
+  }
 
   handleSave(e) {
     e.preventDefault()
-    // use helper function to create an html
-
-    // store all elements
-
     const data = {
       elements: this.state.elements,
-      user: this.state.userData.username
+      user: this.state.userData.username,
+      html: createHTML(this.state.elements)
     }
     axios
       .post('/api/saveRawData', data)
@@ -78,10 +95,12 @@ class Editor extends Component {
       .catch(err => console.error(err))
   }
 
+  printHTML(e) {
+    e.preventDefault()
+    alert(createHTML(this.state.elements))
+  }
+
   componentDidMount() {
-    // console.log(this.state)
-    // if there is html => parse it into elements
-    // if there are no html => start new template
     const request = async () => {
       let json = await axios.get('/api/fetchRawData', {
         params: {
@@ -94,14 +113,10 @@ class Editor extends Component {
     }
     request()
       .then(res => {
-        // let json = JSON.parse(res)
-        console.log('succesfully downloaded your data', res)
         let incomingData = res.data
         let newdata = JSON.parse(res.data.elements)
         incomingData.elements = newdata
-        console.log('last session', incomingData)
         this.setState(incomingData)
-        console.log('state after axios ', this.state.elements)
         res.status(201).send()
       })
       .catch(err => console.error('couldnt fetch raw data from client ', err))
@@ -117,9 +132,14 @@ class Editor extends Component {
           <WebsiteWindow
             elements={this.state.elements}
             updateElement={this.updateElement}
+            deleteElement={this.deleteElement}
           />
         </BuilderUI>
-        <button onClick={this.handleSave}>SAVE THE RAW DATA</button>
+        <div className={styles.actionButtonsContainer}>
+          <button onClick={this.handleSave}>SAVE THE RAW DATA</button>
+          <button onClick={this.printHTML}>Get HTML code</button>
+        </div>
+        <text />
       </PageWrapper>
     )
   }

@@ -1,9 +1,19 @@
-const createElement = data => {
-  return `<${data.tag}>${data.data}</${data.tag}>`
+export const createElement = data => {
+  const styles = () => {
+    let string = ''
+    for (let key in data.attributes) {
+      string = string + key + ':' + data.attributes[key] + ';'
+    }
+
+    return string
+  }
+  //order="${data.order}"
+
+  return `<${data.tag} style="${styles()}" >${data.data}</${data.tag}>\n`
 }
 
 export const createHTML = data => {
-  return `
+  let intro = `
 <!DOCTYPE html>\n
 <html lang="en">\n
 <head>\n
@@ -12,9 +22,15 @@ export const createHTML = data => {
   <meta http-equiv="X-UA-Compatible" content="ie=edge">\n
   <title>Your Website</title>\n
 </head>\n
-<body>\n
-  
+<body>\n`
+  let body = ''
+  data.forEach(element => {
+    body += createElement(element)
+  })
+  let outro = `
 </body>\n
 </html>
   `
+
+  return intro + body + outro
 }

@@ -25,6 +25,7 @@ class WebsiteWindow extends Component {
               <TextElement
                 {...element}
                 updateElement={this.props.updateElement}
+                deleteElement={this.props.deleteElement}
               />
             )
           }

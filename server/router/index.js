@@ -27,14 +27,14 @@ router.route('/authenticate').post((req, res) => {
 })
 
 router.route('/saveRawData').post((req, res) => {
-  const { elements, user } = req.body
+  const { elements, user, html } = req.body
   const userID = 1
-  const link = 'www.bitly.com/fastsave'
+  // const link = 'www.bitly.com/fastsave'
   pool
     .query(
       `insert into websites (elements, userID, link) values ('${JSON.stringify(
         elements
-      )}', '${userID}', '${link}')`
+      )}', '${userID}', '${html}')`
       // `insert into websites (elements) select websites.userID from users inner join users on websites.userID=users.ID where users.username=$1 values (${JSON.stringify(
       //   elements
       // )})`,
@@ -47,23 +47,6 @@ router.route('/saveRawData').post((req, res) => {
 router.route('/fetchRawData').get((req, res) => {
   let { username } = req.query
   console.log(req.query, req.params, username, req.query.responseType)
-
-  // res.on('data', chunk => {
-  //   let textChunk = decoder.write(chunk)
-  // })
-
-  // let temp = ''
-  // req.on('data', chunk => (temp += chunk))
-  // req.on('end', () => (temp = JSON.stringify(temp)))
-  // console.log('temp', data.toString())
-
-  // let textChunk = ''
-
-  // res.on('data', chunk => {
-  //   textChunk = decoder.write(chunk)
-  // })
-
-  // console.log('chunk', textChunk)
 
   const request = async () => {
     let json = await pool.query(
