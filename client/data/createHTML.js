@@ -1,3 +1,5 @@
+// helper function to create a string representation of the element
+
 export const createElement = data => {
   const styles = () => {
     let string = ''
@@ -11,6 +13,8 @@ export const createElement = data => {
 
   return `<${data.tag} style="${styles()}" >${data.data}</${data.tag}>\n`
 }
+
+// helper function to export all the work inside window viewer as a raw HTML
 
 export const createHTML = data => {
   let intro = `

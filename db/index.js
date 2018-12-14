@@ -1,5 +1,6 @@
 const mariadb = require('mariadb')
 
+// establish the connection to db on server start
 const pool = mariadb.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -13,9 +14,7 @@ pool
   .getConnection()
   .then(connection => {
     console.log('successfully connected to database!')
-    // connection
-    //   .query('USE clicktools')
-    //   .then(() => console.log('successfully use the database'))
+    // keep the pool open for development purposes
     // connection.end()
   })
   .catch(err => console.error(err))

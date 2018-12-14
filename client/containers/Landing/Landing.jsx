@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import styler from './styles.css'
 import { PageWrapper, Text } from './LandingUI.jsx'
 import Login from '../Login/Login.jsx'
-import ControlMenu from '../ControlMenu/ControlMenu.jsx'
 
 class Landing extends Component {
   constructor(props) {

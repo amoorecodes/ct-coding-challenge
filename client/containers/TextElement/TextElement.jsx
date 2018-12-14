@@ -14,14 +14,14 @@ class TextElement extends Component {
 
   handleSelect(e) {
     e.preventDefault()
-    // console.log('selected an element')
     this.setState({ selected: !this.state.selected })
   }
 
   handleInput(e) {
     e.preventDefault()
     // e.persist()
-    console.log('handleInput', this.state, e.target)
+
+    // when you make changes to text, save it in attreibutes of an object
     if (
       e.target.className === 'fontSize' ||
       e.target.className === 'color' ||
@@ -40,7 +40,6 @@ class TextElement extends Component {
     } else {
       this.setState({ [e.target.className]: e.target.value })
     }
-    // console.log('state of TExt Element after change', this.state)
   }
 
   render() {

@@ -7,6 +7,8 @@ const ControlMenu = props => {
     padding: '0 10px'
   }
 
+  // due to dumb component cannot input/ change attributes inside Control Menu, same functionality can be seen in window itself
+
   return (
     <div style={divStyles}>
       {elements.map(item => (

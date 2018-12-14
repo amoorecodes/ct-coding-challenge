@@ -1,3 +1,5 @@
+// template for the buttons on the right of the screen
+
 export const elements = [
   {
     name: 'Image',

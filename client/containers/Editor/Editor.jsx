@@ -76,31 +76,36 @@ class Editor extends Component {
       elements = [...elements.slice(0, i), ...elements.slice(i + 1)]
     }
     this.setState({ elements: elements })
-    console.log('elements', elements, 'state after update', this.state.element)
   }
 
   handleSave(e) {
     e.preventDefault()
+    // create object to send to the server/database
     const data = {
       elements: this.state.elements,
       user: this.state.userData.username,
       html: createHTML(this.state.elements)
     }
+
+    // make the request
     axios
       .post('/api/saveRawData', data)
       .then(res => {
-        console.log('we successfully saved your raw data to the editor', res)
         res.status(201).send()
       })
       .catch(err => console.error(err))
   }
 
   printHTML(e) {
+    // function to display full HTML as a text (sorry, can't copy from alert)
     e.preventDefault()
     alert(createHTML(this.state.elements))
   }
 
   componentDidMount() {
+    // load user session on load
+    // extra code === had issue by getting buffer instead of data (don't use blob to save text)
+
     const request = async () => {
       let json = await axios.get('/api/fetchRawData', {
         params: {
@@ -123,7 +128,6 @@ class Editor extends Component {
   }
 
   render() {
-    console.log('editor state', this.state.elements)
     return (
       <PageWrapper>
         <h2>Make your web-blog with a breeze!</h2>

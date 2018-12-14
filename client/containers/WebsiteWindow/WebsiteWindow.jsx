@@ -14,13 +14,8 @@ class WebsiteWindow extends Component {
     return (
       <PageWrapper id="Website">
         {this.props.elements.map(element => {
-          // const style = `"color:${element.attributes.color}; font-size:${
-          //   element.attributes.size
-          // }; background-color: ${element.attributes.background}"`
-          // check it's order
-          // then place it accordingly
-          // <{element.tag}>{element.body}</{element.tag}
           if (element.tag === 'p') {
+            // pass element's data as props and pass two binded functions from Editor
             return (
               <TextElement
                 {...element}

@@ -20,7 +20,6 @@ class ElementsControls extends Component {
 
   handleUpdate(e) {
     e.preventDefault()
-    // console.log('EC e/ data', this.state, 'props', this.props)
     this.props.updateElement(e, {
       ...this.props.elementDetails
     })
@@ -29,12 +28,14 @@ class ElementsControls extends Component {
 
   handleDelete(e) {
     e.preventDefault()
-    console.log('are we deleting? ', this.state.objectID)
     this.props.deleteElement(e, this.state.objectID)
   }
 
   render() {
     if (this.props.className === 'controlMenu') {
+      // hardcoded conditional rendering for the controls
+      // in ideal world would be used modular as a component itself
+
       return (
         <PageWrapper>
           <form>

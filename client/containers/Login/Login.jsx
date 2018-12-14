@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
-import Editor from '../Editor/Editor.jsx'
 import axios from 'axios'
 import styles from './Login.css'
 
